@@ -5,9 +5,9 @@ module ErrorTypes
     end_check = str_match[0].size.eql?(exp_val.zero? ? 0 : exp_val - 2)
 
     if str.strip.eql?('end') || strip_line.first == 'elsif' || strip_line.first == 'when' 
-      log_error("line:#{idx + 1} #{msg}") unless end_check 
+      log_error_message("line:#{idx + 1} #{msg}") unless end_check 
     elsif !str_match[0].size.eql?(exp_val)
-      log_error("line:#{idx + 1} #{msg}")  
+      log_error_message("line:#{idx + 1} #{msg}")  
     end  
   end
 
@@ -20,16 +20,29 @@ module ErrorTypes
 
     status = open_paren.flatten.size <=> close_paren.flatten.size
 
-    log_error("line:#{index + 1} Lint/Syntax: Unexpected/Missing token '#{args[2]}' #{args[4]}") if status.eql?(1)
-    log_error("line:#{index + 1} Lint/Syntax: Unexpected/Missing token '#{args[3]}' #{args[4]}") if status.eql?(-1)
+    log_error_message("line:#{index + 1} Lint/Syntax: Unexpected/Missing token '#{args[2]}' #{args[4]}") if status.eql?(1)
+    log_error_message("line:#{index + 1} Lint/Syntax: Unexpected/Missing token '#{args[3]}' #{args[4]}") if status.eql?(-1)
     end
+  end
+
+  def check_end_empty_line(str, idx)
+    return unless str.strip.split(' ').first.eql?('end')
+
+    log_error_message("line:#{idx} Extra empty line detected at the end of the block body") if @check_errors.file_content[idx - 1].strip.empty?
+  end
+
+  def check_empty_line_do_block(str, idx)
+    message = 'Extra empty line detected at the beginning of the block'
+    return unless str.strip.split(' ').include?('do')
+
+    log_error_message("line:#{idx + 2} #{message}") if @check_errors.file_content[indx + 1].strip.empty?  
   end
 
   def check_class_empty_line(str, idx)
     msg = 'Extra empty line detected at class body beginning'
     return unless str.strip.split(' ').first.eql?('class')
 
-    log_error("line:#{idx + 2} #{msg}") if @check_errors.file_content[idx + 1].strip.empty?
+    log_error_message("line:#{idx + 2} #{msg}") if @check_errors.file_content[idx + 1].strip.empty?
   end
 
   def check_def_empty_line(str, idx)
@@ -38,23 +51,11 @@ module ErrorTypes
 
     return unless str.strip.split(' ').first.eql?('def')
 
-    log_error("line:#{idx + 2} #{message1}") if @check_errors.file_content[idx + 1].strip.empty?
-    log_error("line:#{idx + 1} #{message2}") if @check_errors.file_content[indx - 1].strip.split(' ').first.eql?('end')
+    log_error_message("line:#{idx + 2} #{message1}") if @check_errors.file_content[idx + 1].strip.empty?
+    log_error_message("line:#{idx + 1} #{message2}") if @check_errors.file_content[indx - 1].strip.split(' ').first.eql?('end')
   end
 
-  def check_end_empty_line(str, idx)
-    return unless str.strip.split(' ').first.eql?('end')
-
-    log_error("line:#{idx} Extra empty line detected at the end of the block body") if @check_errors.file_content[idx - 1].strip.empty?
+  def log_error_message(error_msg)
+    @errors << error_msg
   end
-
-  def check_empty_line_do_block(str, idx)
-    message = 'Extra empty line detected at the beginning of the block'
-    return unless str.strip.split(' ').include?('do')
-
-    log_error("line:#{idx + 2} #{message}") if @check_errors.file_content[indx + 1].strip.empty?  
-  end
-
-
-
 end
