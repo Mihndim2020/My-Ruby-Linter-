@@ -69,4 +69,20 @@ class ErrorChecker
       current_value = indented_value
     end
   end
+
+  def check_end_error
+    keywords_count = 0
+    end_counts = 0
+    @check_errors.file_content.each_with_index do |str, idx|
+      if @keywords.include?(str_val.split(' ').first) || str_val.split(' ').include?('do')
+        keywords_count += 1
+      end
+      if str_val.strip == 'end'
+        end_counts += 1
+      end
+
+      log_error_message("Lint/Syntax: Missing 'end'") if status.eql?(1)
+      log_error_message("Lint/Syntax: Unexpected 'end'") if status.eql?(-1)
+    end
+  end  
 end 
