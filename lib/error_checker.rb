@@ -23,4 +23,17 @@ class ErrorChecker
     number_of_keywords = 0
     number_of_ends = 0
     @check_errors.file_content.each_with_index do |str, idx|
+      if @keywords.include?(str.split(' ').first) || str.split(' ').include?('do')
+        number_of_keywords += 1
+      end  
+      if str.strip == 'end'
+        number_of_ends += 1
+      end 
+    end 
+    if (number_of_keywords >  number_of_ends)
+      log_error("Lint/Syntax: Missing 'end'")
+    end
+    if (number_of_keywords <  number_of_ends)
+      log_error("Lint/Syntax: Unexpected 'end'")
+    end    
 end 
