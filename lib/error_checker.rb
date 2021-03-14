@@ -4,6 +4,7 @@ require_relative 'file_reader.rb'
 require 'error_types.rb'
 
 class ErrorChecker
+
   include ErrorTypes
   attr_reader :check_errors, :errors
 
@@ -36,7 +37,7 @@ class ErrorChecker
       log_error("Lint/Syntax: Missing 'end'")
     end
     if (number_of_keywords <  number_of_ends)
-      log_error("Lint/Syntax: Unexpected 'end'")
+      log_error_message("Lint/Syntax: Unexpected 'end'")
     end   
   end 
 
@@ -84,5 +85,11 @@ class ErrorChecker
       log_error_message("Lint/Syntax: Missing 'end'") if status.eql?(1)
       log_error_message("Lint/Syntax: Unexpected 'end'") if status.eql?(-1)
     end
-  end  
+  end 
+  
+  def check_tag_error
+    tag_errors(/\{/, /\}/, '{', '}', 'Curly Bracket')
+    tag_errors(/\[/, /\]/, '[', ']', 'Square Bracket')
+    tag_errors(/\(/, /\)/, '(', ')', 'Parenthesis')
+  end
 end 
