@@ -48,6 +48,13 @@ module ErrorTypes
     log_error("line:#{idx} Extra empty line detected at the end of the block body") if @check_errors.file_content[idx - 1].strip.empty?
   end
 
+  def check_empty_line_do_block(str, idx)
+    message = 'Extra empty line detected at the beginning of the block'
+    return unless str.strip.split(' ').include?('do')
+
+    log_error("line:#{idx + 2} #{message}") if @check_errors.file_content[indx + 1].strip.empty?  
+  end
+
 
 
 end
