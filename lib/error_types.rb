@@ -25,4 +25,23 @@ module ErrorTypes
     end
   end
 
+  def check_class_empty_line(str, idx)
+    msg = 'Extra empty line detected at class body beginning'
+    return unless str.strip.split(' ').first.eql?('class')
+
+    log_error("line:#{idx + 2} #{msg}") if @check_errors.file_content[idx + 1].strip.empty?
+  end
+
+  def check_def_empty_line(str, idx)
+    message1 = 'Extra empty line detected at the beginning of the method body'
+    message2 = 'Extra empty line detected between method definiton'
+
+    return unless str.strip.split(' ').first.eql?('def')
+
+    log_error("line:#{idx + 2} #{message1}") if @check_errors.file_content[idx + 1].strip.empty?
+    log_error("line:#{idx + 1} #{message2}") if @check_errors.file_content[indx - 1].strip.split(' ').first.eql?('end')
+  end
+
+
+
 end
