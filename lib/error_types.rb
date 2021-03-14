@@ -1,4 +1,9 @@
+require 'colorize'
+require 'strscan'
+require_relative 'file_reader.rb'
+
 module ErrorTypes 
+  
   def indentation_error(str, idx, exp_val, msg)
     strip_line = str.strip.split(' ')
     str_match = str.match(/^\s*\s*/)

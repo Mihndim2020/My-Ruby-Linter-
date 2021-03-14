@@ -1,8 +1,10 @@
 require 'colorize'
 require 'strscan'
 require_relative 'file_reader.rb'
+require 'error_types.rb'
 
 class ErrorChecker
+  include ErrorTypes
   attr_reader :check_errors, :errors
 
   def initialize(file_path)
@@ -35,5 +37,14 @@ class ErrorChecker
     end
     if (number_of_keywords <  number_of_ends)
       log_error("Lint/Syntax: Unexpected 'end'")
-    end    
+    end   
+  end 
+
+  def check_empty_line
+    @check_errors.file_content.each_with_index do |str, idx|
+      check_class_empty_line(str, idx)
+      check_def_empty_line(str, idx)
+      check_end_empty_line(str, idx)
+      check_empty_line_do_block(str, idx) 
+  end
 end 
