@@ -47,4 +47,26 @@ class ErrorChecker
       check_end_empty_line(str, idx)
       check_empty_line_do_block(str, idx) 
   end
+
+  def check_indentation
+    message = 'Use two spaces for indentation'
+    current_value = 0
+    indented_value = 0
+
+    @check_errors.file_content.each_with_index do |str, idx|
+      strip_line = str.strip.split(' ')
+      expected_value = current_value + 2
+      reserved_words = w%[class def if elsif until module unless begin case]
+
+      next unless !str.strip.empty? || !strip_line.first.eql?('#')
+
+      indented_value += 1 if reserved_words.include?(strip_line.first) || strip_line.include?('do') 
+      indented_value -= 1 if str.strip == 'end' 
+
+      next if str.strip.empty?
+
+      indentation_error(str, idx, exp_val, msg)
+      current_value = indented_value
+    end
+  end
 end 
