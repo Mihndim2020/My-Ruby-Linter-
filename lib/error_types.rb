@@ -12,5 +12,17 @@ module ErrorTypes
   end
 
   def tag_errors(*args)
+    @check_errors.file_content.each_with_index do |str, idx|
+      open_paren = []
+      close_paren = []
+      open_paren << str.scan(args[0])
+      close_paren << str.scan(args[1])
+
+    status = open_paren.flatten.size <=> close_paren.flatten.size
+
+    log_error("line:#{index + 1} Lint/Syntax: Unexpected/Missing token '#{args[2]}' #{args[4]}") if status.eql?(1)
+    log_error("line:#{index + 1} Lint/Syntax: Unexpected/Missing token '#{args[3]}' #{args[4]}") if status.eql?(-1)
+    end
+  end
 
 end
