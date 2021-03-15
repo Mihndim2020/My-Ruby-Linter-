@@ -78,5 +78,9 @@ class ErrorChecker
     tag_errors(/\[/, /\]/, '[', ']', 'Square Bracket')
     tag_errors(/\(/, /\)/, '(', ')', 'Parenthesis')
   end
+
+  def no_error
+    puts 'No offenses'.colorize(:green) + ' detected'
+  end
 end
 # rubocop: enable Metrics/CyclomaticComplexity
