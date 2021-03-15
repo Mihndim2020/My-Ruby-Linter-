@@ -1,7 +1,8 @@
 # This class checks the files for possible linter errors
 
 # frozen_string_literal: true
-# rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/MethodLength
+
+# rubocop: disable Metrics/CyclomaticComplexity, Metrics/MethodLength
 
 require 'colorize'
 require 'strscan'
@@ -54,49 +55,49 @@ class ErrorChecker
     end
   end
 
-    def check_indentation
-      message = 'Use two spaces for indentation'
-      current_value = 0
-      indented_value = 0
+  def check_indentation
+    message = 'Use two spaces for indentation'
+    current_value = 0
+    indented_value = 0
 
-      @check_errors.file_content.each_with_index do |str, idx|
-        strip_line = str.strip.split(' ')
-        expected_value = current_value + 2
-        reserved_words = %w[class def if elsif until module unless begin case]
+    @check_errors.file_content.each_with_index do |str, idx|
+      strip_line = str.strip.split(' ')
+      expected_value = current_value + 2
+      reserved_words = %w[class def if elsif until module unless begin case]
 
-        next unless !str.strip.empty? || !strip_line.first.eql?('#')
+      next unless !str.strip.empty? || !strip_line.first.eql?('#')
 
-        if reserved_words.include?(strip_line.first) ||
-           strip_line.include?('do')
-          indented_value += 2
-        end
-        indented_value -= 2 if str.strip == 'end'
-
-        next if str.strip.empty?
-
-        indentation_error(str, idx, expected_value, message)
-        current_value = indented_value
+      if reserved_words.include?(strip_line.first) ||
+         strip_line.include?('do')
+        indented_value += 2
       end
+      indented_value -= 2 if str.strip == 'end'
+
+      next if str.strip.empty?
+
+      indentation_error(str, idx, expected_value, message)
+      current_value = indented_value
     end
+  end
 
-    # def check_end_error
-    #   keywords_count = 0
-    #   end_counts = 0
-    #   @check_errors.file_content.each_with_index do |str, _idx|
-    #     if @keywords.include?(str.split(' ').first) || str.split(' ').include?('do')
-    #       keywords_count += 1
-    #     end
-    #     end_counts += 1 if str.strip == 'end'
+  # def check_end_error
+  #   keywords_count = 0
+  #   end_counts = 0
+  #   @check_errors.file_content.each_with_index do |str, _idx|
+  #     if @keywords.include?(str.split(' ').first) || str.split(' ').include?('do')
+  #       keywords_count += 1
+  #     end
+  #     end_counts += 1 if str.strip == 'end'
 
-    #     log_error_message("Lint/Syntax: Missing 'end'") if status.eql?(1)
-    #     log_error_message("Lint/Syntax: Unexpected 'end'") if status.eql?(-1)
-    #   end
-    # end
+  #     log_error_message("Lint/Syntax: Missing 'end'") if status.eql?(1)
+  #     log_error_message("Lint/Syntax: Unexpected 'end'") if status.eql?(-1)
+  #   end
+  # end
 
-    def check_tag_error
-      tag_errors(/\{/, /\}/, '{', '}', 'Curly Bracket')
-      tag_errors(/\[/, /\]/, '[', ']', 'Square Bracket')
-      tag_errors(/\(/, /\)/, '(', ')', 'Parenthesis')
-    end
+  def check_tag_error
+    tag_errors(/\{/, /\}/, '{', '}', 'Curly Bracket')
+    tag_errors(/\[/, /\]/, '[', ']', 'Square Bracket')
+    tag_errors(/\(/, /\)/, '(', ')', 'Parenthesis')
+  end
 end
-# rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/MethodLength
+# rubocop: enable Metrics/CyclomaticComplexity, Metrics/MethodLength
