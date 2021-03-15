@@ -1,15 +1,11 @@
-# This class checks the files for possible linter errors
-
-# frozen_string_literal: true
-
-# rubocop: disable Metrics/CyclomaticComplexity, Metrics/MethodLength
+# rubocop: disable Metrics/CyclomaticComplexity
 
 require 'colorize'
 require 'strscan'
 require_relative 'file_reader.rb'
 require_relative 'error_types.rb'
 
-class ErrorChecker # rubocop:todo Style/Documentation
+class ErrorChecker
   include ErrorTypes
   attr_reader :check_errors, :errors
 
@@ -22,8 +18,7 @@ class ErrorChecker # rubocop:todo Style/Documentation
   def check_white_trailing_spaces
     @check_errors.file_content.each_with_index do |str, idx|
       if !str.strip.empty? && str[-2] == ' '
-        @errors << "Line: #{idx + 1}:#{str.size - 1}:
-         Error: Trailing whitespace detected."
+        @errors << "Line: #{idx + 1}:#{str.size - 1}: Error: Trailing whitespace detected."
       end
     end
   end
@@ -38,9 +33,7 @@ class ErrorChecker # rubocop:todo Style/Documentation
       end
       number_of_ends += 1 if str.strip == 'end'
     end
-    if number_of_keywords > number_of_ends
-      log_error_message("Lint/Syntax: Missing 'end'")
-    end
+    log_error_message("Lint/Syntax: Missing 'end'") if number_of_keywords > number_of_ends
     return unless number_of_keywords < number_of_ends
 
     log_error_message("Lint/Syntax: Unexpected 'end'")
@@ -55,7 +48,7 @@ class ErrorChecker # rubocop:todo Style/Documentation
     end
   end
 
-  def check_indentation # rubocop:todo Metrics/AbcSize
+  def check_indentation
     message = 'Use two spaces for indentation'
     current_value = 0
     indented_value = 0
@@ -80,24 +73,10 @@ class ErrorChecker # rubocop:todo Style/Documentation
     end
   end
 
-  # def check_end_error
-  #   keywords_count = 0
-  #   end_counts = 0
-  #   @check_errors.file_content.each_with_index do |str, _idx|
-  #     if @keywords.include?(str.split(' ').first) || str.split(' ').include?('do')
-  #       keywords_count += 1
-  #     end
-  #     end_counts += 1 if str.strip == 'end'
-
-  #     log_error_message("Lint/Syntax: Missing 'end'") if status.eql?(1)
-  #     log_error_message("Lint/Syntax: Unexpected 'end'") if status.eql?(-1)
-  #   end
-  # end
-
   def check_tag_error
     tag_errors(/\{/, /\}/, '{', '}', 'Curly Bracket')
     tag_errors(/\[/, /\]/, '[', ']', 'Square Bracket')
     tag_errors(/\(/, /\)/, '(', ')', 'Parenthesis')
   end
 end
-# rubocop: enable Metrics/CyclomaticComplexity, Metrics/MethodLength
+# rubocop: enable Metrics/CyclomaticComplexity

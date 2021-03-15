@@ -1,8 +1,6 @@
-# frozen_string_literal: true
-
 require 'colorize'
 
-class FileReader # rubocop:todo Style/Documentation
+class FileReader
   attr_reader :file_path, :file_content, :file_lines, :error_message
   def initialize(file_path)
     @file_path = file_path
