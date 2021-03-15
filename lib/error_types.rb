@@ -77,7 +77,7 @@ module ErrorTypes
     end
   end
 
-  def log_error_message(error_message)
-    @errors << error_message
+  def log_error_message(error_msg)
+    @errors << error_msg
   end
 end
