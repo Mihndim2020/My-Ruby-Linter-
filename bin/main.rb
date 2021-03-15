@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
-require_relative '../error_checker.rb'
+# frozen_string_literal: true
+
+require_relative '../lib/error_checker.rb'
 
 run_checks = ErrorChecker.new(ARGV.first)
 run_checks.check_white_trailing_spaces
@@ -10,9 +12,9 @@ run_checks.check_tag_error
 
 if run_checks.errors.empty? && run_checks.check_errors.err_msg.empty?
   puts 'No offenses'.colorize(:green) + ' detected'
-  else
-    run_checks.errors.uniq.each do |err|  
-      puts "#{run_check.error_checker.file_path.colorize(:blue)} : #{err.colorize(:red)}"
+else
+  run_checks.errors.uniq.each do |err|
+    puts "#{run_check.error_checker.file_path.colorize(:blue)} : #{err.colorize(:red)}"
   end
 end
 

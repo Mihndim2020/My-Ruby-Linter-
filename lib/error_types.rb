@@ -79,3 +79,4 @@ module ErrorTypes
     @errors << error_msg
   end
 end
+puts "Error types is working !"

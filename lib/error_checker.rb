@@ -1,7 +1,7 @@
 require 'colorize'
 require 'strscan'
 require_relative 'file_reader.rb'
-require 'error_types.rb'
+require_relative 'error_types.rb'
 
 class ErrorChecker
 
@@ -57,7 +57,7 @@ class ErrorChecker
     @check_errors.file_content.each_with_index do |str, idx|
       strip_line = str.strip.split(' ')
       expected_value = current_value + 2
-      reserved_words = w%[class def if elsif until module unless begin case]
+      reserved_words = %w[class def if elsif until module unless begin case]
 
       next unless !str.strip.empty? || !strip_line.first.eql?('#')
 
@@ -86,10 +86,13 @@ class ErrorChecker
       log_error_message("Lint/Syntax: Unexpected 'end'") if status.eql?(-1)
     end
   end 
+ 
   
   def check_tag_error
     tag_errors(/\{/, /\}/, '{', '}', 'Curly Bracket')
     tag_errors(/\[/, /\]/, '[', ']', 'Square Bracket')
     tag_errors(/\(/, /\)/, '(', ')', 'Parenthesis')
   end
+end
 end 
+puts "it's working!"
