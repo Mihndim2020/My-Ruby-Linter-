@@ -1,4 +1,7 @@
+# This class checks the files for possible linter errors
+
 # frozen_string_literal: true
+# rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/MethodLength
 
 require 'colorize'
 require 'strscan'
@@ -18,7 +21,8 @@ class ErrorChecker
   def check_white_trailing_spaces
     @check_errors.file_content.each_with_index do |str, idx|
       if !str.strip.empty? && str[-2] == ' '
-        @errors << "Line: #{idx + 1}:#{str.size - 1}: Error: Trailing whitespace detected."
+        @errors << "Line: #{idx + 1}:#{str.size - 1}:
+         Error: Trailing whitespace detected."
       end
     end
   end
@@ -27,7 +31,8 @@ class ErrorChecker
     number_of_keywords = 0
     number_of_ends = 0
     @check_errors.file_content.each_with_index do |str, _idx|
-      if @keywords.include?(str.split(' ').first) || str.split(' ').include?('do')
+      if @keywords.include?(str.split(' ').first) ||
+         str.split(' ').include?('do')
         number_of_keywords += 1
       end
       number_of_ends += 1 if str.strip == 'end'
@@ -35,7 +40,7 @@ class ErrorChecker
     if number_of_keywords > number_of_ends
       log_error_message("Lint/Syntax: Missing 'end'")
     end
-    if number_of_keywords < number_of_ends
+    if (number_of_keywords < number_of_ends)
       log_error_message("Lint/Syntax: Unexpected 'end'")
     end
   end
@@ -93,3 +98,4 @@ class ErrorChecker
     end
 end
 end
+# rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/MethodLength

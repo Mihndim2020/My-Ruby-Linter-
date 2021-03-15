@@ -14,7 +14,8 @@ if run_checks.errors.empty?
   puts 'No offenses'.colorize(:green) + ' detected'
 else
   run_checks.errors.uniq.each do |err|
-    puts "#{run_checks.check_errors.file_path.colorize(:green)} : #{err.colorize(:red)}"
+    puts "#{run_checks.check_errors.file_path.colorize(:green)} :
+     #{err.colorize(:red)}"
   end
 end
 
