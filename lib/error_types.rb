@@ -2,8 +2,8 @@
 
 require 'colorize'
 require 'strscan'
-require_relative '../lib/error_checker.rb'
-require_relative 'file_reader.rb'
+require_relative '../lib/error_checker'
+require_relative 'file_reader'
 
 module ErrorTypes
   def indentation_error(str, idx, expected_value, message)

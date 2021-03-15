@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative '../lib/error_checker.rb'
+require_relative '../lib/error_checker'
 
 run_checks = ErrorChecker.new(ARGV.first)
 run_checks.check_white_trailing_spaces

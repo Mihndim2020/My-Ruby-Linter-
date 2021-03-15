@@ -2,8 +2,8 @@
 
 require 'colorize'
 require 'strscan'
-require_relative 'file_reader.rb'
-require_relative 'error_types.rb'
+require_relative 'file_reader'
+require_relative 'error_types'
 
 class ErrorChecker
   include ErrorTypes
