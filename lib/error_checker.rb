@@ -40,9 +40,9 @@ class ErrorChecker
     if number_of_keywords > number_of_ends
       log_error_message("Lint/Syntax: Missing 'end'")
     end
-    if (number_of_keywords < number_of_ends)
-      log_error_message("Lint/Syntax: Unexpected 'end'")
-    end
+    return unless number_of_keywords < number_of_ends
+
+    log_error_message("Lint/Syntax: Unexpected 'end'")
   end
 
   def check_empty_line
@@ -52,6 +52,7 @@ class ErrorChecker
       check_end_empty_line(str, idx)
       check_empty_line_do_block(str, idx)
     end
+  end
 
     def check_indentation
       message = 'Use two spaces for indentation'
@@ -65,9 +66,10 @@ class ErrorChecker
 
         next unless !str.strip.empty? || !strip_line.first.eql?('#')
 
-        if reserved_words.include?(strip_line.first) || strip_line.include?('do')
+        if reserved_words.include?(strip_line.first) ||
+           strip_line.include?('do')
           indented_value += 2
-      end
+        end
         indented_value -= 2 if str.strip == 'end'
 
         next if str.strip.empty?
@@ -77,25 +79,24 @@ class ErrorChecker
       end
     end
 
-    def check_end_error
-      keywords_count = 0
-      end_counts = 0
-      @check_errors.file_content.each_with_index do |str, _idx|
-        if @keywords.include?(str.split(' ').first) || str.split(' ').include?('do')
-          keywords_count += 1
-        end
-        end_counts += 1 if str.strip == 'end'
+    # def check_end_error
+    #   keywords_count = 0
+    #   end_counts = 0
+    #   @check_errors.file_content.each_with_index do |str, _idx|
+    #     if @keywords.include?(str.split(' ').first) || str.split(' ').include?('do')
+    #       keywords_count += 1
+    #     end
+    #     end_counts += 1 if str.strip == 'end'
 
-        log_error_message("Lint/Syntax: Missing 'end'") if status.eql?(1)
-        log_error_message("Lint/Syntax: Unexpected 'end'") if status.eql?(-1)
-      end
-    end
+    #     log_error_message("Lint/Syntax: Missing 'end'") if status.eql?(1)
+    #     log_error_message("Lint/Syntax: Unexpected 'end'") if status.eql?(-1)
+    #   end
+    # end
 
     def check_tag_error
       tag_errors(/\{/, /\}/, '{', '}', 'Curly Bracket')
       tag_errors(/\[/, /\]/, '[', ']', 'Square Bracket')
       tag_errors(/\(/, /\)/, '(', ')', 'Parenthesis')
     end
-end
 end
 # rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/MethodLength
