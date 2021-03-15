@@ -13,6 +13,7 @@ class FileReader
     rescue StandardError => e
       @file_content = []
       @error_message = "File path incorrect, check you file path and try again\n".colorize(:red)
+      puts @error_message
     end
   end
 end

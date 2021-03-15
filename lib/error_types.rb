@@ -5,15 +5,16 @@ require 'strscan'
 require_relative 'file_reader.rb'
 
 module ErrorTypes
-  def indentation_error(str, idx, exp_val, msg)
+
+  def indentation_error(str, idx, exp_val, message)
     strip_line = str.strip.split(' ')
     str_match = str.match(/^\s*\s*/)
     end_check = str_match[0].size.eql?(exp_val.zero? ? 0 : exp_val - 2)
 
     if str.strip.eql?('end') || strip_line.first == 'elsif' || strip_line.first == 'when'
-      log_error_message("line:#{idx + 1} #{msg}") unless end_check
+      log_error_message("line:#{idx + 1} #{message}") unless end_check
     elsif !str_match[0].size.eql?(exp_val)
-      log_error_message("line:#{idx + 1} #{msg}")
+      log_error_message("line:#{idx + 1} #{message}")
     end
   end
 
@@ -47,7 +48,7 @@ module ErrorTypes
     message = 'Extra empty line detected at the beginning of the block'
     return unless str.strip.split(' ').include?('do')
 
-    if @check_errors.file_content[indx + 1].strip.empty?
+    if @check_errors.file_content[idx + 1].strip.empty?
       log_error_message("line:#{idx + 2} #{message}")
     end
   end
@@ -70,7 +71,7 @@ module ErrorTypes
     if @check_errors.file_content[idx + 1].strip.empty?
       log_error_message("line:#{idx + 2} #{message1}")
     end
-    if @check_errors.file_content[indx - 1].strip.split(' ').first.eql?('end')
+    if @check_errors.file_content[idx - 1].strip.split(' ').first.eql?('end')
       log_error_message("line:#{idx + 1} #{message2}")
     end
   end
@@ -79,4 +80,3 @@ module ErrorTypes
     @errors << error_msg
   end
 end
-puts "Error types is working !"

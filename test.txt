@@ -1,0 +1,6 @@
+class Test
+  def initialize(person, age)
+    @person = person
+    @age = age 
+   
+end

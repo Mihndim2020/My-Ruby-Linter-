@@ -16,7 +16,7 @@ class ErrorChecker
   
   def check_white_trailing_spaces
     @check_errors.file_content.each_with_index do |str, idx|
-      if !str.strip.empty?
+      if !str.strip.empty? && str[-2] == ' '
         @errors << "Line: #{idx+1}:#{str.size - 1}: Error: Trailing whitespace detected."
       end
     end
@@ -34,7 +34,7 @@ class ErrorChecker
       end 
     end 
     if (number_of_keywords >  number_of_ends)
-      log_error("Lint/Syntax: Missing 'end'")
+      log_error_message("Lint/Syntax: Missing 'end'")
     end
     if (number_of_keywords <  number_of_ends)
       log_error_message("Lint/Syntax: Unexpected 'end'")
@@ -61,8 +61,8 @@ class ErrorChecker
 
       next unless !str.strip.empty? || !strip_line.first.eql?('#')
 
-      indented_value += 1 if reserved_words.include?(strip_line.first) || strip_line.include?('do') 
-      indented_value -= 1 if str.strip == 'end' 
+      indented_value += 2 if reserved_words.include?(strip_line.first) || strip_line.include?('do') 
+      indented_value -= 2 if str.strip == 'end' 
 
       next if str.strip.empty?
 
@@ -75,7 +75,7 @@ class ErrorChecker
     keywords_count = 0
     end_counts = 0
     @check_errors.file_content.each_with_index do |str, idx|
-      if @keywords.include?(str_val.split(' ').first) || str_val.split(' ').include?('do')
+      if @keywords.include?(str.split(' ').first) || str.split(' ').include?('do')
         keywords_count += 1
       end
       if str_val.strip == 'end'
@@ -86,8 +86,7 @@ class ErrorChecker
       log_error_message("Lint/Syntax: Unexpected 'end'") if status.eql?(-1)
     end
   end 
- 
-  
+   
   def check_tag_error
     tag_errors(/\{/, /\}/, '{', '}', 'Curly Bracket')
     tag_errors(/\[/, /\]/, '[', ']', 'Square Bracket')
@@ -95,4 +94,3 @@ class ErrorChecker
   end
 end
 end 
-puts "it's working!"
