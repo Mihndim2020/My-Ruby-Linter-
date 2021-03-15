@@ -9,7 +9,7 @@ class FileReader
     begin
       @file_content = File.readlines(@file_path)
       @file_lines = @file_content.size
-    rescue StandardError 
+    rescue StandardError
       @file_content = []
       @error_message = "File path incorrect, check you file path and try again\n".colorize(:red)
     end
