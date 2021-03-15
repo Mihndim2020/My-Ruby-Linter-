@@ -1,5 +1,3 @@
-# rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
-
 require 'colorize'
 require 'strscan'
 require_relative '../lib/error_checker'
@@ -75,4 +73,3 @@ module ErrorTypes
     @errors << error_msg
   end
 end
-# rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
