@@ -40,8 +40,8 @@ module ErrorTypes
     return unless str.strip.split(' ').first.eql?('end')
 
     return unless @check_errors.file_content[idx - 1].strip.empty?
-      log_error_message("line:#{idx} Extra empty line detected at the end of the block body")
-    
+
+    log_error_message("line:#{idx} Extra empty line detected at the end of the block body")
   end
 
   def check_empty_line_do_block(str, idx)
@@ -67,8 +67,8 @@ module ErrorTypes
     log_error_message("line:#{idx + 2} #{message1}") if @check_errors.file_content[idx + 1].strip.empty?
 
     return unless @check_errors.file_content[idx - 1].strip.split(' ').first.eql?('end')
-      log_error_message("line:#{idx + 1} #{message2}")
-    
+
+    log_error_message("line:#{idx + 1} #{message2}")
   end
 
   def log_error_message(error_msg)
