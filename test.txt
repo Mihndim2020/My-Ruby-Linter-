@@ -1,6 +1,12 @@
-class Test
-  def initialize(person, age)
-    @person = person
-    @age = age 
-   
-end
+class Teste
+
+def jay
+  @name
+  @age
+
+  end
+ def jam
+  puts 
+  me  
+
+end 

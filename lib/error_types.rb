@@ -6,7 +6,6 @@ require_relative '../lib/error_checker.rb'
 require_relative 'file_reader.rb'
 
 module ErrorTypes
-
   def indentation_error(str, idx, expected_value, message)
     strip_line = str.strip.split(' ')
     str_match = str.match(/^\s*\s*/)
@@ -77,7 +76,7 @@ module ErrorTypes
     end
   end
 
-  def log_error_message(error_msg)
-    @errors << error_msg
+  def log_error_message(err_msg)
+    @errors << err_msg
   end
 end
