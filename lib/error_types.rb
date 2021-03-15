@@ -5,7 +5,10 @@ require 'strscan'
 require_relative '../lib/error_checker.rb'
 require_relative 'file_reader.rb'
 
-module ErrorTypes
+module ErrorTypes # rubocop:todo Style/Documentation
+  # rubocop:todo Metrics/PerceivedComplexity
+  # rubocop:todo Metrics/AbcSize
+  # rubocop:todo Metrics/CyclomaticComplexity
   def indentation_error(str, idx, expected_value, message)
     strip_line = str.strip.split(' ')
     str_match = str.match(/^\s*\s*/)
@@ -17,8 +20,12 @@ module ErrorTypes
       log_error_message("line:#{idx + 1} #{message}")
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/PerceivedComplexity
 
-  def tag_errors(*args)
+  # rubocop:todo Metrics/MethodLength
+  def tag_errors(*args) # rubocop:todo Metrics/AbcSize
     @check_errors.file_content.each_with_index do |str, _idx|
       open_paren = []
       close_paren = []
@@ -35,34 +42,41 @@ module ErrorTypes
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def check_end_empty_line(str, idx)
     return unless str.strip.split(' ').first.eql?('end')
 
+    # rubocop:todo Style/GuardClause
     if @check_errors.file_content[idx - 1].strip.empty?
       log_error_message("line:#{idx} Extra empty line detected at the end of the block body")
     end
+    # rubocop:enable Style/GuardClause
   end
 
   def check_empty_line_do_block(str, idx)
     message = 'Extra empty line detected at the beginning of the block'
     return unless str.strip.split(' ').include?('do')
 
+    # rubocop:todo Style/GuardClause
     if @check_errors.file_content[idx + 1].strip.empty?
       log_error_message("line:#{idx + 2} #{message}")
     end
+    # rubocop:enable Style/GuardClause
   end
 
   def check_class_empty_line(str, idx)
     msg = 'Extra empty line detected at class body beginning'
     return unless str.strip.split(' ').first.eql?('class')
 
+    # rubocop:todo Style/GuardClause
     if @check_errors.file_content[idx + 1].strip.empty?
       log_error_message("line:#{idx + 2} #{msg}")
     end
+    # rubocop:enable Style/GuardClause
   end
 
-  def check_def_empty_line(str, idx)
+  def check_def_empty_line(str, idx) # rubocop:todo Metrics/AbcSize
     message1 = 'Extra empty line detected at the beginning of the method body'
     message2 = 'Extra empty line detected between method definiton'
 
@@ -71,9 +85,11 @@ module ErrorTypes
     if @check_errors.file_content[idx + 1].strip.empty?
       log_error_message("line:#{idx + 2} #{message1}")
     end
+    # rubocop:todo Style/GuardClause
     if @check_errors.file_content[idx - 1].strip.split(' ').first.eql?('end')
       log_error_message("line:#{idx + 1} #{message2}")
     end
+    # rubocop:enable Style/GuardClause
   end
 
   def log_error_message(error_msg)

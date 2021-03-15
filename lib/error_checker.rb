@@ -9,7 +9,7 @@ require 'strscan'
 require_relative 'file_reader.rb'
 require_relative 'error_types.rb'
 
-class ErrorChecker
+class ErrorChecker # rubocop:todo Style/Documentation
   include ErrorTypes
   attr_reader :check_errors, :errors
 
@@ -55,7 +55,7 @@ class ErrorChecker
     end
   end
 
-  def check_indentation
+  def check_indentation # rubocop:todo Metrics/AbcSize
     message = 'Use two spaces for indentation'
     current_value = 0
     indented_value = 0

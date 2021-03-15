@@ -2,7 +2,7 @@
 
 require 'colorize'
 
-class FileReader
+class FileReader # rubocop:todo Style/Documentation
   attr_reader :file_path, :file_content, :file_lines, :error_message
   def initialize(file_path)
     @file_path = file_path
