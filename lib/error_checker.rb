@@ -66,8 +66,9 @@ class ErrorChecker
 
       next if str.strip.empty?
 
-      indentation_error(str, idx, exp_val, msg)
+      indentation_error(str, idx, expected_value, message)
       current_value = indented_value
+    
     end
   end
 
@@ -78,7 +79,7 @@ class ErrorChecker
       if @keywords.include?(str.split(' ').first) || str.split(' ').include?('do')
         keywords_count += 1
       end
-      if str_val.strip == 'end'
+      if str.strip == 'end'
         end_counts += 1
       end
 
