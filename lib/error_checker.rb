@@ -80,7 +80,7 @@ class ErrorChecker
   end
 
   def no_error
-    puts 'No offenses'.colorize(:green) + ' detected'
+    'No offenses'.colorize(:green)
   end
 end
 # rubocop: enable Metrics/CyclomaticComplexity

@@ -9,7 +9,7 @@ run_checks.check_indentation
 run_checks.check_tag_error
 
 if run_checks.errors.empty?
-  run_checks.no_error
+  puts "#{run_checks.no_error} detected"
 else
   run_checks.errors.uniq.each do |err|
     puts "#{run_checks.check_errors.file_path.colorize(:green)} : #{err.colorize(:red)}"
