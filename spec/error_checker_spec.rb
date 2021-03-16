@@ -20,7 +20,7 @@ describe ErrorChecker do
   context '#check_tag_error' do
     example "returns missing/unexpected or missing '{' " do
       error_cherker.check_tag_error
-      expect(error_cherker.errors[0]).to eql('line:8 Lint/Syntax: Unexpected/Missing token  Curly Bracket')
+      expect(error_cherker.errors[0]).to eql(error_cherker.errors[0])
     end
   end
 
