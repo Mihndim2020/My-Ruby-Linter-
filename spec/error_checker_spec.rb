@@ -14,7 +14,7 @@ describe ErrorChecker do
     example 'should return indentation errror on line 28' do
       error_cherker.check_indentation
       expect(error_cherker.errors[5]).to eql('line:28 Use two spaces for indentation')
-    end  
+    end
   end
 
   context '#check_tag_error' do
@@ -37,5 +37,4 @@ describe ErrorChecker do
       expect(error_cherker.errors[2]).to eql('line:24 Extra empty line detected at the end of the block body')
     end
   end
-
 end
