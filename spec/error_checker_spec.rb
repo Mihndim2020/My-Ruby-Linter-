@@ -20,14 +20,14 @@ describe ErrorChecker do
   context '#check_tag_error' do
     example "returns missing/unexpected or missing '{' " do
       error_cherker.check_tag_error
-      expect(error_cherker.errors[3]).to eql('line:8 Lint/Syntax: Unexpected/Missing token  Curly Bracket')
+      expect(error_cherker.errors[0]).to eql('line:8 Lint/Syntax: Unexpected/Missing token  Curly Bracket')
     end
   end
 
   context '#check_end_error' do
     example 'returns missing/unexpected end' do
       error_cherker.check_end_error
-      expect(error_cherker.errors[1]).to eql("Lint/Syntax: Missing 'end'")
+      expect(error_cherker.errors[0]).to eql("Lint/Syntax: Missing 'end'")
     end
   end
 
