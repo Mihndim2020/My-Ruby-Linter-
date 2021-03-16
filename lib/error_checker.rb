@@ -55,16 +55,16 @@ class ErrorChecker
 
     @check_errors.file_content.each_with_index do |str, idx|
       strip_line = str.strip.split(' ')
-      expected_value = current_value + 2
+      expected_value = current_value * 2
       reserved_words = %w[class def if elsif until module unless begin case]
 
       next unless !str.strip.empty? || !strip_line.first.eql?('#')
 
       if reserved_words.include?(strip_line.first) ||
          strip_line.include?('do')
-        indented_value += 2
+        indented_value += 1
       end
-      indented_value -= 2 if str.strip == 'end'
+      indented_value -= 1 if str.strip == 'end'
 
       next if str.strip.empty?
 
