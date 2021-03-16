@@ -70,6 +70,6 @@ describe ErrorChecker do
     example 'returns nil when there no empty line error' do
       error_cherker.check_empty_line
       expect(error_cherker.errors[2]).to eql(nil)
-    endk body'
+    end
   end
 end
