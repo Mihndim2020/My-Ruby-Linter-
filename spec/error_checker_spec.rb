@@ -10,6 +10,13 @@ describe ErrorChecker do
     end
   end
 
+  context '#check_white_trailing_spaces' do
+    example 'should not return trailing whitespace detected on line 1' do
+      error_cherker.check_white_trailing_spaces
+      expect(error_cherker.errors[0]).to eql('Line: 1:17: Error: Trailing whitespace detected.')
+    end
+  end
+
   context '#check_indentation' do
     example 'should return indentation errror on line 28' do
       error_cherker.check_indentation
