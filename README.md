@@ -18,10 +18,10 @@ Additional description about the project and its features.
 - To run the program on your local machine, follow the steps below
 
 ### Prerequisites
-- Laptop with an operating installed
+- Laptop with an operating system installed
 - Access to the internet
-- Intall Ruby Programming Language(Ruby v 2.7.0)
-- gem colorized
+- Install Ruby Programming Language(Ruby v 2.7.0)
+- Install gem colorized
 
 ### Usage
 - Clone this repository to your local machine by the entering this command on your terminal: git clone https://github.com/Mihndim2020/My-Ruby-Linter-/tree/my_linters
