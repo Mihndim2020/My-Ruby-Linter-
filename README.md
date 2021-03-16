@@ -2,7 +2,7 @@
 
 # Ruby Capstone Project: My-Ruby-Linters
 
-> In this project, I have build Linters for Ruby programs which parses the code base and returns a feedback concerning the indentation, trailing spaces, tag errors, end errors and line errors.
+> In this project, I have build Linters for Ruby programs which parses the code base and returns a feedback concerning the indentation, trailing white spaces, tag errors, end errors and line errors.
 
 ![screenshot](images/no_offenses.png)
 ![screenshot](images/error_file.png)
