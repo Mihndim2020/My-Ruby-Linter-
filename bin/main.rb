@@ -8,7 +8,7 @@ run_checks.check_empty_line
 run_checks.check_indentation
 run_checks.check_tag_error
 
-if run_checks.errors.empty?
+if run_checks.errors.empty? && !(run_checks.check_errors.file_content.empty?)
   puts "#{run_checks.no_error} detected"
 else
   run_checks.errors.uniq.each do |err|
