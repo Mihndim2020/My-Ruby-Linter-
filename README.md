@@ -26,11 +26,16 @@ Additional description about the project and its features.
 ### Usage
 - Clone this repository to your local machine by the entering this command on your terminal: git clone https://github.com/Mihndim2020/My-Ruby-Linter-/tree/my_linters
 - cd into to the folder 
-- enter bin/main.rb --file-path to check your source code for linter errors. 
+- Enter bin/main.rb --file-path to check your source code for linter errors. 
 
 ### Testing with RSpec
 This project is tested with Rspec which is a computer domain-specific language (DSL) testing tool written in the Ruby programming language
 ![screenshot](images/respec.png)
+
+### Usage
+- Clone this repository to your local machine by the entering this command on your terminal: git clone https://github.com/Mihndim2020/My-Ruby-Linter-/tree/my_linters
+- cd into to the folder 
+- Run RSpec 
 
 ## Authors
 
