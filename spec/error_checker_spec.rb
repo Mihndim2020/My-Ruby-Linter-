@@ -6,14 +6,14 @@ describe ErrorChecker do
   context '#check_white_trailing_spaces' do
     example 'should return trailing whitespace detected on line 1' do
       error_cherker.check_white_trailing_spaces
-      expect(error_cherker.errors[0]).to eql('Line: 1:17: Error: Trailing whitespace detected.')
+      expect(error_cherker.errors[0]).to eql('Line: 1:15: Error: Trailing whitespace detected.')
     end
   end
 
   context '#check_white_trailing_spaces' do
     example 'should return nil when no white space is detected line 1' do
       error_cherker.check_white_trailing_spaces
-      expect(error_cherker.errors[0]).to eql(nil)
+      expect(error_cherker.errors[20]).to eql(nil)
     end
   end
 
