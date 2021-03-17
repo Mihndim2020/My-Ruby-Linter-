@@ -6,11 +6,10 @@ require_relative 'file_reader'
 require_relative 'error_types'
 
 class ErrorChecker < ErrorTypes
-
   attr_reader :check_errors, :errors
 
-  super
   def initialize(file_path)
+    super
     @check_errors = FileReader.new(file_path)
     @errors = []
     @keywords = %w[begin case class def do if module unless]

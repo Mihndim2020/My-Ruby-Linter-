@@ -4,7 +4,6 @@ require_relative '../lib/error_checker'
 require_relative 'file_reader'
 
 class ErrorTypes
-  
   private
 
   def indentation_error(str, idx, expected_value, message)
