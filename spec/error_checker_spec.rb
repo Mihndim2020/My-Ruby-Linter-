@@ -20,14 +20,14 @@ describe ErrorChecker do
   context '#check_indentation' do
     example 'should return indentation errror on line 28' do
       error_cherker.check_indentation
-      expect(error_cherker.errors[5]).to eql('line:28 Use two spaces for indentation')
+      expect(error_cherker.errors[0]).to eql('line:2 Use two spaces for indentation')
     end
   end
 
   context '#check_indentation' do
     example 'should return nil when there is no identation error on line 28' do
       error_cherker.check_indentation
-      expect(error_cherker.errors[5]).to eql(nil)
+      expect(error_cherker.errors[19]).to eql(nil)
     end
   end
 
@@ -55,14 +55,14 @@ describe ErrorChecker do
   context '#check_end_error' do
     example 'returns nil when there is missing/unexpeced end' do
       error_cherker.check_end_error
-      expect(error_cherker.errors[0]).to eql(nil)
+      expect(error_cherker.errors[17]).to eql(nil)
     end
   end
 
   context '#check_empty_line' do
     example 'returns empty line error' do
       error_cherker.check_empty_line
-      expect(error_cherker.errors[2]).to eql('line:24 Extra empty line detected at the end of the block body')
+      expect(error_cherker.errors[0]).to eql('line:5 Extra empty line detected at the beginning of the method body')
     end
   end
 
