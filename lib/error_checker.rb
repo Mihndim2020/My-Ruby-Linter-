@@ -5,8 +5,7 @@ require 'strscan'
 require_relative 'file_reader'
 require_relative 'error_types'
 
-class ErrorChecker
-  include ErrorTypes
+class ErrorChecker < ErrorTypes
   attr_reader :check_errors, :errors
 
   def initialize(file_path)

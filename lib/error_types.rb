@@ -3,7 +3,9 @@ require 'strscan'
 require_relative '../lib/error_checker'
 require_relative 'file_reader'
 
-module ErrorTypes
+class ErrorTypes
+  private
+
   def indentation_error(str, idx, expected_value, message)
     strip_line = str.strip.split(' ')
     str_match = str.match(/^\s*\s*/)
