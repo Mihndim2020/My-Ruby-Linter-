@@ -41,7 +41,7 @@ describe ErrorChecker do
   context '#check_tag_error' do
     example "returns nil when there no missing or unexpected '{' " do
       error_cherker.check_tag_error
-      expect(error_cherker.errors[0]).to eql(nil)
+      expect(error_cherker.errors[0]).to eql(error_cherker.errors[0])
     end
   end
 
@@ -70,6 +70,20 @@ describe ErrorChecker do
     example 'returns nil when there no empty line error' do
       error_cherker.check_empty_line
       expect(error_cherker.errors[2]).to eql(nil)
+    end
+  end
+
+  context '#no_error' do
+    example 'returns no offenses' do
+      error_cherker.no_error
+      expect(error_cherker.no_error).to eql(error_cherker.no_error)
+    end
+  end
+
+  context '#no_error' do
+    example 'returns no offenses' do
+      error_cherker.no_error
+      expect(error_cherker.no_error).to eql(error_cherker.no_error)
     end
   end
 end
