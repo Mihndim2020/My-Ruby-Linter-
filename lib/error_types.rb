@@ -12,7 +12,7 @@ class ErrorTypes
     end_check = str_match[0].size.eql?(expected_value.zero? ? 0 : expected_value - 2)
 
     if str.strip.eql?('end') || strip_line.first == 'elsif' || strip_line.first == 'when'
-      log_error_message("line:#{idx + 1} #{message}") unless end_check
+      log_error_message("line:#{idx + 1} #{message}") if !end_check
     elsif !str_match[0].size.eql?(expected_value)
       log_error_message("line:#{idx + 1} #{message}")
     end
